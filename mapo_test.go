@@ -174,7 +174,7 @@ func TestMarshalJSON(t *testing.T) {
 
 	got, err := json.Marshal(mo)
 	if err != nil {
-		t.Fatalf("Marshal: %v", err)
+		t.Fatalf("%v", err)
 	}
 
 	want := `{"a":34,"b":[3,4,5]}`
@@ -187,114 +187,37 @@ func TestUnmarshalJSON(t *testing.T) {
 	t.Parallel()
 
 	in := `{
-		"country"     : "United States",
-		"countryCode" : "US",
-		"region"      : "CA",
-		"regionName"  : "California",
-		"city"        : "Mountain View",
-		"zip"         : "94043",
-		"lat"         : 37.4192,
-		"lon"         : -122.0574,
-		"timezone"    : "America/Los_Angeles",
-		"isp"         : "Google Cloud",
-		"org"         : "Google Cloud",
-		"as"          : "AS15169 Google Inc.",
-		"mobile"      : true,
-		"proxy"       : false,
-		"query"       : "35.192.xx.xxx",
-		"nested": {
-			"country"     : "United States",
-			"countryCode" : "US",
-			"region"      : "CA",
-			"regionName"  : "California",
-			"city"        : "Mountain View",
-			"zip"         : "94043",
-			"lat"         : 37.4192,
-			"lon"         : -122.0574,
-			"timezone"    : "America/Los_Angeles",
-			"isp"         : "Google Cloud",
-			"org"         : "Google Cloud",
-			"as"          : "AS15169 Google Inc.",
-			"mobile"      : true,
-			"proxy"       : false,
-			"query"       : "35.192.xx.xxx"
+		"a": 1,
+		"b": "hello",
+		"c": true,
+		"d": false,
+		"e": null,
+		"f": 3.14,
+		"g": [1, 2, 3],
+		"h": {
+				"i": 4,
+				"j": "world"
 			}
 		}`
 
-	m := map[string]any{
-		"country":     "United States",
-		"countryCode": "US",
-		"region":      "CA",
-		"regionName":  "California",
-		"city":        "Mountain View",
-		"zip":         "94043",
-		"lat":         json.Number("37.4192"),
-		"lon":         json.Number("-122.0574"),
-		"timezone":    "America/Los_Angeles",
-		"isp":         "Google Cloud",
-		"org":         "Google Cloud",
-		"as":          "AS15169 Google Inc.",
-		"mobile":      true,
-		"proxy":       false,
-		"query":       "35.192.xx.xxx",
-	}
-
 	want := Map{
 		value: map[string]any{
-			"country":     "United States",
-			"countryCode": "US",
-			"region":      "CA",
-			"regionName":  "California",
-			"city":        "Mountain View",
-			"zip":         "94043",
-			"lat":         json.Number("37.4192"),
-			"lon":         json.Number("-122.0574"),
-			"timezone":    "America/Los_Angeles",
-			"isp":         "Google Cloud",
-			"org":         "Google Cloud",
-			"as":          "AS15169 Google Inc.",
-			"mobile":      true,
-			"proxy":       false,
-			"query":       "35.192.xx.xxx",
-			"nested": &Map{
-				value: m,
-				key: []string{
-					"country",
-					"countryCode",
-					"region",
-					"regionName",
-					"city",
-					"zip",
-					"lat",
-					"lon",
-					"timezone",
-					"isp",
-					"org",
-					"as",
-					"mobile",
-					"proxy",
-					"query",
+			"a": json.Number("1"),
+			"b": "hello",
+			"c": true,
+			"d": false,
+			"e": nil,
+			"f": json.Number("3.14"),
+			"g": []any{json.Number("1"), json.Number("2"), json.Number("3")},
+			"h": &Map{
+				value: map[string]any{
+					"i": json.Number("4"),
+					"j": "world",
 				},
+				key: []string{"i", "j"},
 			},
 		},
-		key: []string{
-			"country",
-			"countryCode",
-			"region",
-			"regionName",
-			"city",
-			"zip",
-			"lat",
-			"lon",
-			"timezone",
-			"isp",
-			"org",
-			"as",
-			"mobile",
-			"proxy",
-			"query",
-			"nested",
-		},
+		key: []string{"a", "b", "c", "d", "e", "f", "g", "h"},
 	}
 
 	var got Map

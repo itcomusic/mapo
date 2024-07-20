@@ -17,9 +17,8 @@ const (
 )
 
 type Map struct {
-	value      map[string]any
-	key        []string
-	escapeHTML bool
+	value map[string]any
+	key   []string
 }
 
 // New creates a new Map.
@@ -33,11 +32,6 @@ func NewWithSize(cap int) *Map {
 		value: make(map[string]any, cap),
 		key:   make([]string, 0, cap),
 	}
-}
-
-// SetEscapeHTML sets whether to escape HTML.
-func (m *Map) SetEscapeHTML(on bool) {
-	m.escapeHTML = on
 }
 
 // Set sets the key to value.
@@ -114,8 +108,6 @@ func (m *Map) MarshalJSON() ([]byte, error) {
 	buf.WriteByte(delimObjectOpen)
 
 	encoder := json.NewEncoder(&buf)
-	encoder.SetEscapeHTML(m.escapeHTML)
-
 	for i, key := range m.key {
 		if i > 0 {
 			buf.WriteByte(',')
