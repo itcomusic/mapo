@@ -1,6 +1,6 @@
-# mapo
+# Map order
 
-Map Order (Mapo) is a custom implementation of a map in Go that maintains the order of keys as they are added.
+Is a custom implementation of a map in Go that maintains the order of keys as they are added
 ## Features
 
 - **Order Preservation**: Keys are stored in the order they are added
@@ -30,6 +30,7 @@ func main() {
     m.Set("c", 3)
     
     fmt.Println(m.Keys()) // [a, b, c]
+	
     value, ok := m.Get("a")
     fmt.Println(value, ok) // 1, true
     m.Delete("c")
