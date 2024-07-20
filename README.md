@@ -1,4 +1,8 @@
-# Map order
+# Map Order
+
+[![build-img]][build-url]
+[![pkg-img]][pkg-url]
+[![coverage-img]][coverage-url]
 
 Is a custom implementation of a map in Go that maintains the order of keys as they are added
 ## Features
@@ -35,17 +39,28 @@ func main() {
     fmt.Println(value, ok) // 1, true
     m.Delete("c")
     
-    b, err := json.Marshal(m)
-    if err != nil {
-        panic(err)
-    }
+    b, _ := json.Marshal(m)
     fmt.Println(string(b)) // {"a":1,"b":2}
     
     var m2 mapo.Map
-    if err := json.Unmarshal(b, &m2); err != nil {
-        panic(err)
-    }
+    _ = json.Unmarshal(b, &m2)
     fmt.Println(m2.Keys()) // [a, b]
 }
 
 ```
+
+## License
+
+[MIT License](LICENSE)
+
+[build-img]: https://github.com/itcomusic/mapo/workflows/build/badge.svg
+
+[build-url]: https://github.com/itcomusic/mapo/actions
+
+[pkg-img]: https://pkg.go.dev/badge/github.com/itcomusic/mapo.svg
+
+[pkg-url]: https://pkg.go.dev/github.com/itcomusic/mapo
+
+[coverage-img]: https://codecov.io/gh/itcomusic/mapo/branch/main/graph/badge.svg
+
+[coverage-url]: https://codecov.io/gh/itcomusic/mapo
